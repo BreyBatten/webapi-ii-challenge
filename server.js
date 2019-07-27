@@ -6,9 +6,7 @@ server.use(express.json());
 server.use('/api/posts', postsRouter);
 
 server.get("/", (req, res) => {
-    res.send(`
-        <h3>Posts API</h3>
-    `);
+    res.send("Posts API");
 });
 
 module.exports = server;
