@@ -60,10 +60,14 @@ router.post("/:id/comments", async (req, res) => {
         const comment = await Posts.insert(req.body);
         if (!req.body.text) {
             res.status(400).json({ errorMessage: "Please provide text for the comment." });
-        }
-        res.status(201).json(comment)
+        } else if (comment) {
+            res.status(201).json({ id: req.params.id, ...req.body });
+        } else {
+            res.status(404).json({ message: "The post with the specified ID does not exist." });
+        }  
     } catch (error) {
-
+        console.log(error);
+        res.status(500).json({ error: "There was an error while saving the comment to the database." });
     }
 });
 
